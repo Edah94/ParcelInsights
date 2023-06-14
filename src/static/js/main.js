@@ -214,7 +214,26 @@ function init (){
 
 
 
+    //Successfully loading in the layer but is slow in loading and hovering around the map
+    // Could mitigate this by first requesting the administrative unit such as municipality, visualizing the layers and than making them available for click event listener
+    /*
+    var wfsSource = new ol.source.Vector({
+        format: new ol.format.GeoJSON(),
+        url: function(extent) {
+          return 'https://geoserver22s.zgis.at/geoserver/BEV/ows?service=WFS&' +
+              'version=1.1.0&request=GetFeature&typeName=BEV:gst_vgd_3857_20221001&' +
+              'outputFormat=application/json&srsname=EPSG:3857&' +
+              'bbox=' + extent.join(',') + ',EPSG:3857';
+        },
+        strategy: ol.loadingstrategy.bbox
+      });
+      
+      var wfsLayer = new ol.layer.Vector({
+        source: wfsSource
+      });
 
+      map.addLayer(wfsLayer);
+      */
 
 
 

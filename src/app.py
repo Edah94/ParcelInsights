@@ -31,7 +31,7 @@ def create_pdf():
 
 
 
-
+# (KG: Lochen, GNR: 416) - send this sample
 
 
 if __name__ == '__main__':

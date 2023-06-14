@@ -31,7 +31,8 @@ from shapely.geometry import mapping
 from lxml import etree
 
 
-
+## NOTES
+# parcel KG: Wichenham and GNR: 9 has geology issues
 
 
 
@@ -79,123 +80,7 @@ wms_slope = WebMapService('https://zgis188.geo.sbg.ac.at/arcgis/services/23S8561
 
 
 ## FUNCTIONS PART
-#function to add pages to the PDF document - deprecated, replaced with class underneath
-def footer(canvas, doc):
-    """
-    This is the function to add page number in the footer
-    """
-    page_num = canvas.getPageNumber()
-    text = "{}".format(page_num)
-    canvas.saveState()
-    canvas.setFont("Helvetica", 12)
-    canvas.drawString(doc.pagesize[0] - inch, 0.75 * inch, text)
-    #canvas.drawString(inch, 0.75 * inch, text)
-    canvas.restoreState()
 
-def wfs_check_version(wfs_url):
-    response = requests.get(wfs_url, params={"request": "GetCapabilities"})
-
-    # Check if the request was successful
-    if response.status_code == 200:
-        # Parse the XML response
-        xml = etree.fromstring(response.content)
-        
-        # Extract the 'version' attribute from the WFS_Capabilities element
-        wfs_capabilities = xml.xpath("/*[local-name() = 'WFS_Capabilities']")[0]
-        version = wfs_capabilities.get("version")
-
-        print(f"Supported WFS version: {version}")
-
-    else:
-        print("Error: Unable to fetch WFS capabilities.")
-
-def wfs_check_layer_srs(wfs_url, feature_class_name):
-    wfs = WebFeatureService(url=wfs_url, version='2.0.0')
-
-    # Get the feature type information
-    feature_type_info = wfs.contents[feature_class_name]
-
-    # Get the SRS of the feature type
-    srs = feature_type_info.crsOptions[0]
-
-    print("The SRS of the feature class '{}' is: {}".format(feature_class_name, srs))
-
-
-def wfs_getfeature_parcel(wfs_url: str, layer: str, gemeinde: str,
-                           gnr: str, kg: str) -> gpd.GeoDataFrame:
-
-
-    #wfs_bev = WebFeatureService()
-    response = requests.get(wfs_url, params={
-        "request": "GetFeature",
-        "version": "1.1.0",
-        "typeName": layer,
-        "srsName": "EPSG:31255",
-        "CQL_FILTER": "{} LIKE '{}%' AND {}='{}' AND {}='{}'".format("Gemeinde", gemeinde, "GNR", gnr, "KG", kg),
-        "outputFormat": "application/json"
-    })
-
-    if response.status_code == 200:
-        data = response.json()
-        gdf_parcel = gpd.GeoDataFrame.from_features(data["features"])
-        
-        #save as shapefile
-        output_file = os.path.join("output", "bev_parcel_434.shp")
-        gdf_parcel.to_file(output_file)
-
-        return gdf_parcel
-
-def wfs_getfeature_feature(gdf_parcel, wfs_url: str, layer: str, srsName: int,):
-
-    gdf_parcel_bbox = gdf_parcel.total_bounds
-    bbox_str = ','.join(map(str, gdf_parcel_bbox))
-    #print("CRS of gdf_parcel:", gdf_parcel.crs)
-    #print("Bbox of the gdf_parcel:", bbox_str)
-
-    bbox_str = f"{gdf_parcel_bbox[1]},{gdf_parcel_bbox[0]},{gdf_parcel_bbox[3]},{gdf_parcel_bbox[2]}"
-
-    #print("Bbox of the gdf_parcel switched:", bbox_str)
-    response2 = requests.get(wfs_url, params={
-        "request": "GetFeature",
-        "version": "1.1.0", #wfs-spatial-filtering site suggests based on version the coordinate values need to be switched
-        "typeName": layer,
-        "srsName": srsName,
-        #"srsName": "EPSG:3857",
-        #"cql_filter": "bbox(shape, 1465998.7781,6111499.7771,1466436.1839,6112053.169)",
-        "bbox": bbox_str,
-        "outputFormat": "application/json"
-    })
-
-    
-    if response2.status_code == 200:
-        data = response2.json()
-        gdf = gpd.GeoDataFrame.from_features(data["features"])
-        #print("CRS of gdf_geology: ", gdf.crs)
-        #print("Bounding box of the gdf_geology", gdf.total_bounds)
-        
-        output_file = os.path.join("output", f"{layer}.shp")
-        gdf.to_file(output_file)
-        
-        return gdf
-    else:
-        print("Error: Unable to fetch features from the second WFS.")
-
-
-def visualize_feature(feature: gpd.GeoDataFrame) -> folium.Map:
-    
-    feature.set_crs("EPSG:3857", inplace=True)
-    feature = feature.to_crs("EPSG:31255")
-    m = folium.Map(location=[feature.geometry.centroid.y.mean(), feature.geometry.centroid.x.mean()])
-
-    #gdf['geometry'] = gdf['geometry'].apply(lambda x: x.wkt)
-
-    # Add data to the map
-    folium.GeoJson(feature).add_to(m)
-
-    # Show the map
-    return m
-    #EPSG 4326 uses a coordinate system the same as a GLOBE (curved surface). 
-    #EPSG 3857 uses a coordinate system the same as a MAP (flat surface).
 
 ## Download the WMS legend
 def get_WMS_legend(wms, layer_name):
@@ -258,7 +143,7 @@ class HeaderInsertImage(canvas.Canvas):
         num_pages = len(self._saved_page_states)
         for state in self._saved_page_states:
             self.__dict__.update(state)
-            self.draw_header()  # draw a header on each page
+            self.draw_footer()  # draw a header on each page
             self.draw_page_number(num_pages)
             canvas.Canvas.showPage(self)
         canvas.Canvas.save(self)
@@ -268,12 +153,13 @@ class HeaderInsertImage(canvas.Canvas):
         self.drawRightString(7.6 * inch, 0.75 * inch,
                              "Page %d of %d" % (self._pageNumber, page_count))
 
-    def draw_header(self):
-        # draw the image in the top-right corner
-        self.drawInlineImage("PI_logo.png", self._pagesize[0] - 1 * inch, self._pagesize[1] - 1 * inch, width=40, height=40)
+    def draw_footer(self):
+    # draw the image in the top-right corner
+        self.drawImage("static/images/PI_logo.png", self._pagesize[0] - 1 * inch, self._pagesize[1] - 1 * inch, width=40, height=40, mask='auto')
         self.drawString(1 * inch, self._pagesize[1] - 1 * inch, "ParcelInsights")
-
-
+        self.setFont("Helvetica", 9)
+        self.drawString(1 * inch, 0.75 * inch, "Edah Sahinovic")
+        
 
 
 
@@ -458,6 +344,8 @@ def create_pdf(gnr_input, kg_input, output_path):
         print("Error: Unable to fetch features.")
 
 
+
+
     #BUIDLING FULL CALLABLE PDF DOCUMENT BUILDER - WORKING ON THIS ONE
     #layers names = gdf_parcel ,gdf_parcel_neighbors, gdf_geology, dem, aspect, slope
 
@@ -477,9 +365,14 @@ def create_pdf(gnr_input, kg_input, output_path):
     pdf = SimpleDocTemplate(output_path, pagesize=A4)
     # Create a story list to populate with PDF elements
     pdf_elements_list = []
+
     # Set up the document's styles
     styles = getSampleStyleSheet()
 
+    frontpage_title_style = ParagraphStyle('Frontpage', parent=styles['Heading1'], alignment=1, textColor=colors.black, spaceAfter=12, fontSize=20, fontName='Helvetica-Bold')
+    frontpage_subtitle_style = ParagraphStyle('Frontpage', parent=styles['Heading1'], alignment=1, textColor=colors.black, spaceAfter=12, fontSize=14, fontName='Helvetica-Bold')
+    
+    
     title_style = ParagraphStyle('Heading1', parent=styles['Heading1'], alignment=1, textColor=colors.black, spaceAfter=12)
     title_style.fontName = 'Helvetica-Bold'
 
@@ -512,6 +405,27 @@ def create_pdf(gnr_input, kg_input, output_path):
     bbox_parcel_3857 = gdf_parcel_3857.total_bounds
     count_page = 0
 
+    ## Set up first two generic pages
+    # FRONTPAGE
+    frontpage_title = "I3 Project: ParcelInsights"
+    frontpage_subtitle = "Automated Parcel-based Reports for Different Environmental Conditions based on Open-source Technologies"
+
+
+    frontpage_title_text = Paragraph(frontpage_title, frontpage_title_style)
+    frontpage_subtitle_text = Paragraph(frontpage_subtitle, frontpage_subtitle_style)
+
+    pdf_elements_list.extend([
+        Spacer(1, 250),
+        frontpage_title_text,
+        frontpage_subtitle_text,
+        PageBreak()
+    ])
+
+
+    # TABLE OF CONTENTS
+    # Create a list to store the content pages and TOC entries
+
+
     for layer in layers_list:
         #print(layer)
         
@@ -524,7 +438,7 @@ def create_pdf(gnr_input, kg_input, output_path):
             gdf_parcel_neighbors_3857.boundary.plot(ax=ax, edgecolor='red', linewidth=1.5)
 
             # Plot the boundaries of the geodataframe - gdf_parcel
-            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='black', linewidth=3)
+            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='#FFA500', linewidth=3)
 
             # Add labels for gdf_neighbors using "GNR" attribute
             for x, y, label in zip(gdf_parcel_neighbors_3857.geometry.centroid.x, gdf_parcel_neighbors_3857.geometry.centroid.y, gdf_parcel_neighbors_3857["GNR"]):
@@ -539,7 +453,7 @@ def create_pdf(gnr_input, kg_input, output_path):
 
             
             # Add the small box with text as a map scale representation
-            ax.text(0.01, 0.01, '{}'.format(map_scale_parcel_neighbors), transform=ax.transAxes, 
+            ax.text(0.01, 0.01, 'Scale: {}'.format(map_scale_parcel_neighbors), transform=ax.transAxes, 
                     fontsize=10, verticalalignment='bottom', 
                     bbox=dict(facecolor='#D3D3D3', edgecolor='black', boxstyle='square,pad=0.2'))
 
@@ -659,9 +573,9 @@ def create_pdf(gnr_input, kg_input, output_path):
                 intro_text,
                 Spacer(1, 0),
                 image,
-                Spacer(1, 3),
+                Spacer(1, 10),
                 map_text,
-                Spacer(1, 5),
+                Spacer(1, 10),
                 table_text,
                 table,
                 Spacer(1, 10),
@@ -678,10 +592,10 @@ def create_pdf(gnr_input, kg_input, output_path):
 
             #clipping the layer to the extend of the parcel for further analysis
             gdf_geology_filtered_clipped_3857 = gpd.overlay(gdf_geology_filtered_3857, gdf_parcel_3857, how='intersection')
-            gdf_geology_filtered_clipped_3857.plot(ax=ax, edgecolor='red', linewidth=1.5)
+            gdf_geology_filtered_clipped_3857.plot(ax=ax, edgecolor='red', linewidth=1.5, alpha=0.5)
 
             # Plot the boundaries of the geodataframe - gdf_parcel
-            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='black', linewidth=3)
+            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='#FFA500', linewidth=3,)
 
             for x, y, label in zip(gdf_geology_filtered_clipped_3857.geometry.centroid.x, gdf_geology_filtered_clipped_3857.geometry.centroid.y, gdf_geology_filtered_clipped_3857['code']):
                 ax.annotate(label, xy=(x, y), xytext=(3, 3), color="red", textcoords="offset points")
@@ -691,10 +605,13 @@ def create_pdf(gnr_input, kg_input, output_path):
             ax.set_xlim(minx, maxx)
             ax.set_ylim(miny, maxy)
 
+            # Add the basemap
+            ctx.add_basemap(ax, source=ctx.providers.BasemapAT.orthofoto)
+
             ax.axis('off')
 
             # Add the small box with text as a map scale representation
-            ax.text(0.01, 0.01, '{}'.format(map_scale_parcel), transform=ax.transAxes, 
+            ax.text(0.01, 0.01, 'Scale: {}'.format(map_scale_parcel), transform=ax.transAxes, 
                     fontsize=10, verticalalignment='bottom', 
                     bbox=dict(facecolor='#D3D3D3', edgecolor='black', boxstyle='square,pad=0.2'))
 
@@ -777,9 +694,9 @@ def create_pdf(gnr_input, kg_input, output_path):
                 intro_text,
                 Spacer(1, 0),
                 image,
-                Spacer(1, 3),
+                Spacer(1, 10),
                 map_text,
-                Spacer(1, 5),
+                Spacer(1, 10),
                 table_text,
                 table,
                 Spacer(1, 10),
@@ -792,21 +709,22 @@ def create_pdf(gnr_input, kg_input, output_path):
             fig, ax = plt.subplots(figsize=(8.27, 9.69/2))  # Half A4 size map # 8.27, 9.69/2
             gdf_riskzones_filtered_clipped_3857 = gpd.overlay(gdf_riskzones_filtered_3857, gdf_parcel_3857, how='intersection')
             
-            gdf_riskzones_filtered_clipped_3857.plot(ax=ax, edgecolor='red', linewidth=1.5)
+            gdf_riskzones_filtered_clipped_3857.plot(ax=ax, edgecolor='red', linewidth=1.5, alpha=0.5)
             # Plot the boundaries of the geodataframe - gdf_parcel
-            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='black', linewidth=3)
+            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='#FFA500', linewidth=3)
 
             # Add labels for gdf_neighbors using "GNR" attribute
             for x, y, label in zip(gdf_riskzones_filtered_clipped_3857.geometry.centroid.x, gdf_riskzones_filtered_clipped_3857.geometry.centroid.y, gdf_riskzones_filtered_clipped_3857["art"]):
                 ax.annotate(label, (x, y), color='red', fontsize=8, ha='center', va='center')
 
-            
+            # Add the basemap
+            ctx.add_basemap(ax, source=ctx.providers.BasemapAT.orthofoto)
 
             ax.axis('off')
 
             
             # Add the small box with text as a map scale representation
-            ax.text(0.01, 0.01, '{}'.format(map_scale_parcel), transform=ax.transAxes, 
+            ax.text(0.01, 0.01, 'Scale: {}'.format(map_scale_parcel), transform=ax.transAxes, 
                     fontsize=10, verticalalignment='bottom', 
                     bbox=dict(facecolor='#D3D3D3', edgecolor='black', boxstyle='square,pad=0.2'))
 
@@ -860,7 +778,7 @@ def create_pdf(gnr_input, kg_input, output_path):
                     text += "The '<b>Residual Risk</b>' category in flood danger zones represents areas that are safeguarded by flood protection measures such as dams or levees, but are still at risk in the event of a failure or overtopping of these defenses. While protection measures considerably reduce the risk, they cannot entirely eliminate it. This zone covers approximately <b>{}%</b> of the total parcel area.".format(coverage)
                     
             
-            map_figure_text = "<b>Map {}.</b> Spatial Distribution of Flood Risk Zones in the Parcel".format(count_page)
+            map_figure_text = "<b>Map {}.</b> Spatial Distribution of Flood Risk Zones in the Parcel <b>{}</b>, <b>{}</b> ".format(count_page, kg_input, gnr_input)
             table_figure_text = "<b>Table {}.</b> Classification and Proportions of Flood Risk Zones within the Parcel".format(count_page)
 
             # Create the content flowables
@@ -880,9 +798,9 @@ def create_pdf(gnr_input, kg_input, output_path):
                 intro_text,
                 Spacer(1, 0),
                 image,
-                Spacer(1, 3),
+                Spacer(1, 10),
                 map_text,
-                Spacer(1, 5),
+                Spacer(1, 10),
                 table_text,
                 table,
                 Spacer(1, 10),
@@ -934,10 +852,10 @@ def create_pdf(gnr_input, kg_input, output_path):
                 ax.imshow(im, extent=[minx, maxx, miny, maxy])
 
                 # Plot the boundaries of the geodataframe - gdf_parcel
-                gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='black', linewidth=3)
+                gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='#FFA500', linewidth=3)
 
                 # Add the small box with text as a map scale representation
-                ax.text(0.01, 0.01, '{}'.format(map_scale_parcel), transform=ax.transAxes, 
+                ax.text(0.01, 0.01, 'Scale: {}'.format(map_scale_parcel), transform=ax.transAxes, 
                         fontsize=10, verticalalignment='bottom', 
                         bbox=dict(facecolor='#D3D3D3', edgecolor='black', boxstyle='square,pad=0.2'))
 
@@ -987,11 +905,11 @@ def create_pdf(gnr_input, kg_input, output_path):
                 img_gray = img_rescaled.convert('L')
                 
                 # Save the rescaled image
-
-                img_gray.save('output_dem.png')
+                output_dem = os.path.join("output/wms_img", "output_dem.png")
+                img_gray.save(output_dem)
 
                 # Read the image file
-                im = PIL.Image.open('output_dem.png')
+                im = PIL.Image.open(output_dem)
 
                 # Create a figure and axes
                 fig, ax = plt.subplots(figsize=(8.27, 9.69/2))
@@ -1000,13 +918,13 @@ def create_pdf(gnr_input, kg_input, output_path):
                 minx, miny, maxx, maxy = gdf_parcel_3857.total_bounds
 
                 # Display the image, stretched to the extent of your geopandas dataframe
-                ax.imshow(im, extent=[minx, maxx, miny, maxy])
+                ax.imshow(im, extent=[minx, maxx, miny, maxy], alpha=0.5)
 
                 # Plot the boundaries of the geodataframe - gdf_parcel
-                gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='black', linewidth=3)
+                gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='#FFA500', linewidth=3, alpha=0.5)
 
                 # Add the small box with text as a map scale representation
-                ax.text(0.01, 0.01, '{}'.format(map_scale_parcel), transform=ax.transAxes, 
+                ax.text(0.01, 0.01, 'Scale: {}'.format(map_scale_parcel), transform=ax.transAxes, 
                         fontsize=10, verticalalignment='bottom', 
                         bbox=dict(facecolor='#D3D3D3', edgecolor='black', boxstyle='square,pad=0.2'))
 
@@ -1056,7 +974,7 @@ def create_pdf(gnr_input, kg_input, output_path):
                         providing the detailed insights into the physical attributes of the parcel, allowing for better planning and decision-making."""
             text = """The analysis of the DEM reveals that the elevation within the parcel varies, indicating a diverse terrain. The minimum elevation recorded is <b>{:.2f}</b> meters, 
                         while the maximum stands at <b>{:.2f}</b> meters. The average elevation across the parcel is around <b>{:.2f}</b> meters.""".format(elev_min_val, elev_max_val, elev_avg_val)
-            map_figure_text = "<b>Map {}.</b>. Topographical Representation of Parcel".format(count_page) 
+            map_figure_text = "<b>Map {}.</b>. Topographical Representation of Parcel <b>{}</b>, <b>{}</b> ".format(count_page, kg_input, gnr_input) 
             table_figure_text = "<b>Table {}.</b> Elevation Characteristics Summary in Meters".format(count_page)
 
             # Create the content flowables
@@ -1080,9 +998,9 @@ def create_pdf(gnr_input, kg_input, output_path):
                 intro_text,
                 Spacer(1, 0),
                 image,
-                Spacer(1, 3),
+                Spacer(1, 10),
                 map_text,
-                Spacer(1, 5),
+                Spacer(1, 10),
                 table_text,
                 table,
                 Spacer(1, 10),
@@ -1117,13 +1035,13 @@ def create_pdf(gnr_input, kg_input, output_path):
             minx, miny, maxx, maxy = gdf_parcel_3857.total_bounds
 
             # Display the image, stretched to the extent of your geopandas dataframe
-            ax.imshow(im, extent=[minx, maxx, miny, maxy])
+            ax.imshow(im, extent=[minx, maxx, miny, maxy], alpha=0.5)
 
             # Plot the boundaries of the geodataframe - gdf_parcel
-            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='black', linewidth=3)
+            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='#FFA500', linewidth=3)
 
             # Add the small box with text as a map scale representation
-            ax.text(0.01, 0.01, '{}'.format(map_scale_parcel), transform=ax.transAxes, 
+            ax.text(0.01, 0.01, 'Scale: {}'.format(map_scale_parcel), transform=ax.transAxes, 
                     fontsize=10, verticalalignment='bottom', 
                     bbox=dict(facecolor='#D3D3D3', edgecolor='black', boxstyle='square,pad=0.2'))
 
@@ -1274,7 +1192,7 @@ def create_pdf(gnr_input, kg_input, output_path):
             On the other hand, the least represented orientations in the parcel are <b>{4}</b> and <b>{5}</b>, 
             which account for approximately <b>{6}%</b> and <b>{7}%</b> of the area respectively.
             """.format(most_dominant_orientations[0], most_dominant_orientations[1], most_dominant_percentages[0], most_dominant_percentages[1], least_dominant_orientations[0], least_dominant_orientations[1], least_dominant_percentages[0], least_dominant_percentages[1])
-            map_figure_text = "<b>Map {}.</b>. Aspect Orientation of the Parcel".format(count_page)
+            map_figure_text = "<b>Map {}.</b>. Aspect Orientation of the Parcel <b>{}</b>, <b>{}</b> ".format(count_page, kg_input, gnr_input)
             table_figure_text = "<b>Table {}.</b> Distribution of Aspect Orientations within the Parcel".format(count_page)
 
             # Create the content flowables
@@ -1296,9 +1214,9 @@ def create_pdf(gnr_input, kg_input, output_path):
                 intro_text,
                 Spacer(1, 0),
                 image,
-                Spacer(1, 3),
+                Spacer(1, 10),
                 map_text,
-                Spacer(1, 5),
+                Spacer(1, 10),
                 table_text,
                 table,
                 Spacer(1, 10),
@@ -1332,13 +1250,13 @@ def create_pdf(gnr_input, kg_input, output_path):
             minx, miny, maxx, maxy = gdf_parcel_3857.total_bounds
 
             # Display the image, stretched to the extent of your geopandas dataframe
-            ax.imshow(im, extent=[minx, maxx, miny, maxy])
+            ax.imshow(im, extent=[minx, maxx, miny, maxy], alpha=0.5)
 
             # Plot the boundaries of the geodataframe - gdf_parcel
-            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='black', linewidth=3)
+            gdf_parcel_3857.boundary.plot(ax=ax, edgecolor='#FFA500', linewidth=3)
 
             # Add the small box with text as a map scale representation
-            ax.text(0.01, 0.01, '{}'.format(map_scale_parcel), transform=ax.transAxes, 
+            ax.text(0.01, 0.01, 'Scale: {}'.format(map_scale_parcel), transform=ax.transAxes, 
                     fontsize=10, verticalalignment='bottom', 
                     bbox=dict(facecolor='#D3D3D3', edgecolor='black', boxstyle='square,pad=0.2'))
             
@@ -1468,7 +1386,7 @@ def create_pdf(gnr_input, kg_input, output_path):
             text = """The parcel displays a diversity of slopes, influencing various environmental factors and potential uses of the land. The most dominant slopes in this parcel are '<b>{}</b>' at <b>{}%</b> 
                         and '<b>{}</b>' at <b>{}%</b>, accounting for the majority of the area. On the other hand, the '<b>{}</b>' slope at <b>{}%</b> and '<b>{}</b>' slope at <b>{}%</b> are the least common, 
                         representing the smallest portion of the parcel.""".format(list(most_dominant_slopes.keys())[0], list(most_dominant_slopes.values())[0], list(most_dominant_slopes.keys())[1], list(most_dominant_slopes.values())[1], list(least_dominant_slopes.keys())[0], list(least_dominant_slopes.values())[0], list(least_dominant_slopes.keys())[1], list(least_dominant_slopes.values())[1])
-            map_figure_text = "<b>Map {}.</b>. Slope Distribution Map of the Parcel".format(count_page)
+            map_figure_text = "<b>Map {}.</b>. Slope Distribution Map of the Parcel <b>{}</b>, <b>{}</b> ".format(count_page, kg_input, gnr_input)
             table_figure_text = "<b>Table {}.</b> Slope Categories and their Distribution within the Parcel".format(count_page)
 
             # Create the content flowables
@@ -1489,9 +1407,9 @@ def create_pdf(gnr_input, kg_input, output_path):
                 intro_text,
                 Spacer(1, 0),
                 image,
-                Spacer(1, 3),
+                Spacer(1, 10),
                 map_text,
-                Spacer(1, 5),
+                Spacer(1, 10),
                 table_text,
                 table,
                 Spacer(1, 10),
