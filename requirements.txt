@@ -61,7 +61,7 @@ pycairo==1.23.0
 Pygments==2.14.0
 pyparsing==3.0.9
 pyproj==3.4.1
-python-dateutil==1.5
+python-dateutil==2.8.2
 pytz==2023.2
 pywin32==306
 PyYAML==6.0
