@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<MD_Metadata xmlns="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<language>
+		<LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="ger" codeSpace="ISO639-2">ger</LanguageCode>
+	</language>
+	<characterSet>
+		<MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8" codeSpace="ISOTC211/19115">utf8</MD_CharacterSetCode>
+	</characterSet>
+	<hierarchyLevel>
+		<MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset" codeSpace="ISOTC211/19115">dataset</MD_ScopeCode>
+	</hierarchyLevel>
+	<hierarchyLevelName>
+		<gco:CharacterString>dataset</gco:CharacterString>
+	</hierarchyLevelName>
+	<contact>
+		<CI_ResponsibleParty>
+			<individualName>
+				<gco:CharacterString>Edah Sahinovic</gco:CharacterString>
+			</individualName>
+			<organisationName>
+				<gco:CharacterString>ZGIS</gco:CharacterString>
+			</organisationName>
+			<positionName>
+				<gco:CharacterString>student</gco:CharacterString>
+			</positionName>
+			<role>
+				<CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="publisher" codeSpace="ISOTC211/19115">publisher</CI_RoleCode>
+			</role>
+		</CI_ResponsibleParty>
+	</contact>
+	<dateStamp>
+		<gco:Date>2023-05-25</gco:Date>
+	</dateStamp>
+	<metadataStandardName>
+		<gco:CharacterString>ISO 19139 Geographic Information - Metadata - Implementation Specification</gco:CharacterString>
+	</metadataStandardName>
+	<metadataStandardVersion>
+		<gco:CharacterString>2007</gco:CharacterString>
+	</metadataStandardVersion>
+	<identificationInfo>
+		<MD_DataIdentification>
+			<citation>
+				<CI_Citation>
+					<title>
+						<gco:CharacterString>Digital Elevation Model (DEM) as 10m raster Upper Austria</gco:CharacterString>
+					</title>
+					<date>
+						<CI_Date>
+							<date>
+								<gco:Date>2017-12-01</gco:Date>
+							</date>
+							<dateType>
+								<CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation" codeSpace="ISOTC211/19115">creation</CI_DateTypeCode>
+							</dateType>
+						</CI_Date>
+					</date>
+					<citedResponsibleParty>
+						<CI_ResponsibleParty>
+							<individualName>
+								<gco:CharacterString>Edah Sahinovic</gco:CharacterString>
+							</individualName>
+							<organisationName>
+								<gco:CharacterString>ZGIS</gco:CharacterString>
+							</organisationName>
+							<positionName>
+								<gco:CharacterString>student</gco:CharacterString>
+							</positionName>
+							<role>
+								<CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="publisher" codeSpace="ISOTC211/19115">publisher</CI_RoleCode>
+							</role>
+						</CI_ResponsibleParty>
+					</citedResponsibleParty>
+				</CI_Citation>
+			</citation>
+			<abstract>
+				<gco:CharacterString>Digital Elevation Model with cell size of 10m for the Upper Austria, Austria. </gco:CharacterString>
+			</abstract>
+			<purpose>
+				<gco:CharacterString>Digital Elevation Model of Upper Austria serves as a representation of height values to be analyzed. Furthermore, it serves as a base layer for deriving other qualitative features for the investigated area, such as steepness and orientation of the terrain. </gco:CharacterString>
+			</purpose>
+			<credit>
+				<gco:CharacterString>DORIS - Digitales OÖ. Raum-Informations-System</gco:CharacterString>
+			</credit>
+			<pointOfContact>
+				<CI_ResponsibleParty>
+					<individualName>
+						<gco:CharacterString>Edah Sahinovic</gco:CharacterString>
+					</individualName>
+					<organisationName>
+						<gco:CharacterString>ZGIS</gco:CharacterString>
+					</organisationName>
+					<positionName>
+						<gco:CharacterString>student</gco:CharacterString>
+					</positionName>
+					<role>
+						<CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="publisher" codeSpace="ISOTC211/19115">publisher</CI_RoleCode>
+					</role>
+				</CI_ResponsibleParty>
+			</pointOfContact>
+			<resourceMaintenance>
+				<MD_MaintenanceInformation>
+					<maintenanceAndUpdateFrequency>
+						<MD_MaintenanceFrequencyCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="notPlanned" codeSpace="ISOTC211/19115">notPlanned</MD_MaintenanceFrequencyCode>
+					</maintenanceAndUpdateFrequency>
+				</MD_MaintenanceInformation>
+			</resourceMaintenance>
+			<descriptiveKeywords>
+				<MD_Keywords>
+					<keyword>
+						<gco:CharacterString>Geographic Services</gco:CharacterString>
+					</keyword>
+					<thesaurusName uuidref="723f6998-058e-11dc-8314-0800200c9a66"/>
+				</MD_Keywords>
+			</descriptiveKeywords>
+			<descriptiveKeywords>
+				<MD_Keywords>
+					<keyword>
+						<gco:CharacterString>Digital Elevation Model</gco:CharacterString>
+					</keyword>
+					<keyword>
+						<gco:CharacterString>DEM</gco:CharacterString>
+					</keyword>
+					<keyword>
+						<gco:CharacterString>10m</gco:CharacterString>
+					</keyword>
+					<keyword>
+						<gco:CharacterString>Upper Austria</gco:CharacterString>
+					</keyword>
+				</MD_Keywords>
+			</descriptiveKeywords>
+			<language>
+				<LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="ger" codeSpace="ISO639-2">ger</LanguageCode>
+			</language>
+			<characterSet>
+				<MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8" codeSpace="ISOTC211/19115">utf8</MD_CharacterSetCode>
+			</characterSet>
+			<topicCategory>
+				<MD_TopicCategoryCode>elevation</MD_TopicCategoryCode>
+			</topicCategory>
+			<extent>
+				<EX_Extent>
+					<geographicElement>
+						<EX_GeographicBoundingBox>
+							<extentTypeCode>
+								<gco:Boolean>false</gco:Boolean>
+							</extentTypeCode>
+							<westBoundLongitude>
+								<gco:Decimal>3.9</gco:Decimal>
+							</westBoundLongitude>
+							<eastBoundLongitude>
+								<gco:Decimal>13.9</gco:Decimal>
+							</eastBoundLongitude>
+							<southBoundLatitude>
+								<gco:Decimal>46.9</gco:Decimal>
+							</southBoundLatitude>
+							<northBoundLatitude>
+								<gco:Decimal>49.2</gco:Decimal>
+							</northBoundLatitude>
+						</EX_GeographicBoundingBox>
+					</geographicElement>
+				</EX_Extent>
+			</extent>
+		</MD_DataIdentification>
+	</identificationInfo>
+	<dataQualityInfo>
+		<DQ_DataQuality>
+			<scope>
+				<DQ_Scope>
+					<level>
+						<MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="service" codeSpace="ISOTC211/19115">service</MD_ScopeCode>
+					</level>
+					<levelDescription>
+						<MD_ScopeDescription>
+							<attributes uuidref="height"/>
+						</MD_ScopeDescription>
+					</levelDescription>
+				</DQ_Scope>
+			</scope>
+		</DQ_DataQuality>
+	</dataQualityInfo>
+	<metadataMaintenance>
+		<MD_MaintenanceInformation>
+			<maintenanceAndUpdateFrequency>
+				<MD_MaintenanceFrequencyCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="notPlanned" codeSpace="ISOTC211/19115">notPlanned</MD_MaintenanceFrequencyCode>
+			</maintenanceAndUpdateFrequency>
+		</MD_MaintenanceInformation>
+	</metadataMaintenance>
+</MD_Metadata>

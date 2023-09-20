@@ -1,0 +1,257 @@
+/*the container has a fixed position and is adaptable to different screen sizes */
+html {
+    margin: 0;
+    padding: 0;
+}
+
+/*The uppermost and lowermost containers have absolute positionscoupled
+  with fixed height so they do not change due to the scaling of the screen*/
+  #upper_div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: rgb(5, 155, 255);
+    color: white;
+    text-align: left;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 5;
+    border: 2px solid #0366d6;
+  }
+  
+  
+
+  #project_name h2{
+    height: 10px;
+    margin-left: 5px;
+    top: 10px;
+  }
+
+  #project_name p{
+    margin-left: 5px;
+  }
+  
+
+
+  #left_div {
+    position: absolute;
+    width: 40%;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    background: rgb(5, 180, 255);
+    padding-left: 4px;
+    border: 2px solid #0366d6;
+    overflow-y: auto;
+  }
+  
+  #map {
+    position: absolute;
+    top: 70px;
+    left: 40%;
+    right: 0;
+    bottom: 0;
+    background: #CCFFCC;
+    border: 2px solid #0366d6;
+  }
+
+
+
+#left_div h2{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+#left_div p{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+}
+
+.sidebar0 {
+  text-align: justify;
+  padding: 20px;
+  
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+
+.sidebar1 {
+  text-align: justify;
+  padding: 20px;
+  border-bottom: 1px solid black;
+}
+
+.sidebar2 {
+  padding: 20px;
+  border-bottom: 1px solid black;
+}
+
+.sidebar3 {
+padding: 20px;
+}
+
+#logo {
+    position: absolute;
+    top: 55%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+  
+#logo img {
+    width: 65px;
+    height: 65px;
+}
+
+#attributeValues {
+    margin-top: 10px;
+    text-align: justify;
+    color: red;
+    padding: 5px;
+    border: 1px solid black;
+    background-color: rgb(245, 240, 240);
+    line-height: 1.5;
+    height: 3em;
+    overflow: auto;
+}
+
+#generatePdfButton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    border: none;
+    color: rgb(5, 180, 255);
+    font-weight: bold;
+    cursor: pointer;
+}
+  
+  #generatePdfButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+
+#esriRadio, #osmRadio {
+  margin-bottom: 10px;
+}
+
+
+
+label {
+    display: block;
+  }
+
+.input-label {
+font-weight: bold;
+color: #333;
+margin-bottom: 5px;
+}
+
+p span.highlight {
+    font-weight: bold;
+    color: #0366d6;
+    font-size: 16px;
+  }
+
+
+
+/*The middlepart div has a height in percentages since it will dinamically scale with the screen height*/
+
+
+/*In addition to the uppermost div container, it has a bottom fixed in order to remain at its position */
+/*
+#lower_div{
+    position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	height: 45px;
+	background: rgb(5, 155, 255);
+	color: white;
+	text-align: right;
+	font-weight: bold;
+	font-size: 100%;
+	padding: 0;
+	margin: 0;
+    z-index: 5;
+    border: 2px solid #0366d6;
+}
+*/
+/*Title, positioned in the center of its parent div*/
+
+
+  #lower_div p {
+    font-size: 14px;
+    color: #555;
+    margin-right: 10px;
+  }
+
+.overlay-container{
+    background-color: rgb(224, 86, 86);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    width: 100px;
+    color: #fff;
+    text-align: left;
+    border-radius: 8px;
+    border: 1px solid;
+    padding: 2px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -80px;
+  }
+
+.overlay-text{
+    font-size: 12px;
+    font-family:'Times New Roman';
+}
+
+#close-feature {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+  }
+  
+#close-feature {
+    content: "✖";
+  }
+
+  #left_upper_div {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+#right_upper_div {
+  float: right;
+  width: 50%;
+  text-align: right;
+}
+
+#right_upper_div img {
+  height: 40px;
+  width: auto;
+  margin-top: 5px;
+}
+
+#left_div h2:first-child {
+  margin-top: 0;
+}
+
+#left_div h2 {
+  margin-bottom: 10px;
+}
+
+#left_div p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}

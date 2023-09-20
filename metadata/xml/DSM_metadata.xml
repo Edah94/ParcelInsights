@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<RDF xmlns:dct="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcat="http://www.w3.org/ns/dcat#">
+	<Distribution rdf:about="http://data.europa.eu/88u/distribution/98abd552-38cd-41e4-8ba7-46a99e199311">
+		<description xml:lang="mt-t-de-t0-mtec">
+			Data fil-format GeoTIFF
+		</description>
+		<description xml:lang="cs-t-de-t0-mtec">
+			Data ve formátu GeoTIFF
+		</description>
+		<title xml:lang="sl-t-de-t0-mtec">
+			Digitalni 10 m – terenski model iz Airborne Laserscan Data v projekciji EPSG:31287 (Lambert)
+		</title>
+		<description xml:lang="pl-t-de-t0-mtec">
+			Dane w formacie GeoTIFF
+		</description>
+		<description xml:lang="lt-t-de-t0-mtec">
+			Duomenys GeoTIFF formatu
+		</description>
+		<description xml:lang="sk-t-de-t0-mtec">
+			Údaje vo formáte GeoTIFF
+		</description>
+		<description xml:lang="uk-t-de-t0-mtec">
+			Дані у форматі GeoTIFF
+		</description>
+		<description xml:lang="ga-t-de-t0-mtec">
+			Sonraí i bhformáid GeoTIFF
+		</description>
+		<title xml:lang="fr-t-de-t0-mtec">
+			Numérique 10 m — Modèle de terrain à partir de données de balayage laser Airborne dans la projection EPSG:31287 (Lambert)
+		</title>
+		<title xml:lang="hr-t-de-t0-mtec">
+			Digitalni 10 m – Terrain Model iz zrakoplovnih Laserscan podataka u projekciji EPSG: 31287 (Lambert)
+		</title>
+		<title xml:lang="ga-t-de-t0-mtec">
+			Digiteach 10 m — Samhail Terrain ó Léasair Aerbheirthe Sonraí i dTionscadal EPSG: 31287 (Lambert)
+		</title>
+		<title xml:lang="cs-t-de-t0-mtec">
+			Digitální 10 m – Terrain Model from Airborne Laserscan Data in Projection EPSG:31287 (Lambert)
+		</title>
+		<description>
+			Daten im Format GeoTiFF
+		</description>
+		<title xml:lang="bg-t-de-t0-mtec">
+			Дигитален 10 m — Модел на терена от бордови лазерни данни в проекцията EPSG:31287 (Lambert)
+		</title>
+		<description xml:lang="da-t-de-t0-mtec">
+			Data i GeoTIFF-format
+		</description>
+		<description xml:lang="sv-t-de-t0-mtec">
+			Data i GeoTIFF-format
+		</description>
+		<byteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">
+			1892609
+		</byteSize>
+		<title xml:lang="hu-t-de-t0-mtec">
+			Digitális 10 m – Terrain Model from Airborne Laserscan Data in Projection EPSG:31287 (Lambert)
+		</title>
+		<title xml:lang="es-t-de-t0-mtec">
+			Digital 10 m — Modelo Terrain de Airborne Laserscan Data en Proyección EPSG:31287 (Lambert)
+		</title>
+		<title xml:lang="pt-t-de-t0-mtec">
+			Digital 10 m — Modelo de Terrain de Airborne Laserscan Data em Projeção EPSG:31287 (Lambert)
+		</title>
+		<description xml:lang="lv-t-de-t0-mtec">
+			Dati GeoTIFF formātā
+		</description>
+		<description xml:lang="pt-t-de-t0-mtec">
+			Dados no formato GeoTIFF
+		</description>
+		<description xml:lang="el-t-de-t0-mtec">
+			Δεδομένα σε μορφή GeoTIFF
+		</description>
+		<title xml:lang="el-t-de-t0-mtec">
+			Ψηφιακό 10 m — Μοντέλο εδάφους από τα αερομεταφερόμενα δεδομένα Laserscan στην προβολή EPSG: 31287 (Lambert)
+		</title>
+		<title xml:lang="uk-t-de-t0-mtec">
+			Цифрова 10 м - модель місцевості від повітряно-десантних даних лазерного сканування в проекції EPSG: 31287 (Ламберт)
+		</title>
+		<description xml:lang="hr-t-de-t0-mtec">
+			Podaci u GeoTIFF formatu
+		</description>
+		<title xml:lang="nl-t-de-t0-mtec">
+			Digitaal 10 m — Terrain Model van Airborne Laserscan Data in Projectie EPSG:31287 (Lambert)
+		</title>
+		<description xml:lang="sl-t-de-t0-mtec">
+			Podatki v formatu GeoTIFF
+		</description>
+		<description xml:lang="hu-t-de-t0-mtec">
+			Adatok GeoTIFF formátumban
+		</description>
+		<description xml:lang="nl-t-de-t0-mtec">
+			Gegevens in GeoTIFF-formaat
+		</description>
+		<description xml:lang="fi-t-de-t0-mtec">
+			Tiedot GeoTIFF-muodossa
+		</description>
+		<title xml:lang="da-t-de-t0-mtec">
+			Digital 10 m — Terrain Model fra Airborne Laserscan Data i Projection EPSG:31287 (Lambert)
+		</title>
+		<title xml:lang="fi-t-de-t0-mtec">
+			Digitaalinen 10 m – Maastomalli Airborne Laserscan Datan projektiossa EPSG:31287 (Lambert)
+		</title>
+		<description xml:lang="et-t-de-t0-mtec">
+			Andmed GeoTIFFi vormingus
+		</description>
+		<title xml:lang="ro-t-de-t0-mtec">
+			Digital 10 m – Model Terrain de la Airborne Laserscan Date în proiecție EPSG:31287 (Lambert)
+		</title>
+		<title xml:lang="sk-t-de-t0-mtec">
+			Digitálny 10 m – Terrain Model z Airborne Laserscan dát v projekcii EPSG: 31287 (Lambert)
+		</title>
+		<description xml:lang="es-t-de-t0-mtec">
+			Datos en formato GeoTIFF
+		</description>
+		<title xml:lang="et-t-de-t0-mtec">
+			Digitaalne 10 m – Terrain Mudel Airborne Laserscan Data in Projection EPSG:31287 (Lambert)
+		</title>
+		<mediaType>
+			application/zip
+		</mediaType>
+		<description xml:lang="it-t-de-t0-mtec">
+			Dati in formato GeoTIFF
+		</description>
+		<title xml:lang="it-t-de-t0-mtec">
+			Digitale 10 m — Modello Terrain da Airborne Laserscan dati in proiezione EPSG:31287 (Lambert)
+		</title>
+		<title xml:lang="pl-t-de-t0-mtec">
+			Cyfrowy 10 m – Model terenowy z Airborne Laserscan Data w projekcji EPSG:31287 (Lambert)
+		</title>
+		<accessURL rdf:resource="https://gis.ktn.gv.at/OGD/Geographie_Planung/ogd-10m-at.zip" />
+		<title>
+			Digitales 10m - Geländemodell aus Airborne Laserscan Daten in der Projektion EPSG:31287 (Lambert)
+		</title>
+		<format>
+			geotiff
+		</format>
+		<title xml:lang="mt-t-de-t0-mtec">
+			Diġitali 10 m — Terrain Mudell minn Laserscan bl-ajru Data fil Projezzjoni EPSG: 31287 (Lambert)
+		</title>
+		<identifier>
+			https://www.data.gv.at/dataset/b5de6975-417b-4320-afdb-eb2a9e2a1dbf/resource/03a4e83b-af16-41ad-80d1-d616cc73d76d
+		</identifier>
+		<title xml:lang="lt-t-de-t0-mtec">
+			Skaitmeninis 10 m – „Terrain Model“ iš „Airborne Laserscan“ duomenų projekcijoje EPSG:31287 (Lambert)
+		</title>
+		<title xml:lang="en-t-de-t0-mtec">
+			Digital 10 m — Terrain Model from Airborne Laserscan Data in Projection EPSG:31287 (Lambert)
+		</title>
+		<title xml:lang="lv-t-de-t0-mtec">
+			Digital 10 m — Terrain Model from Airborne Laserscan Data in Projection EPSG:31287 (Lambert)
+		</title>
+		<description xml:lang="bg-t-de-t0-mtec">
+			Данни във формат GeoTIFF
+		</description>
+		<description xml:lang="en-t-de-t0-mtec">
+			Data in GeoTIFF format
+		</description>
+		<description xml:lang="fr-t-de-t0-mtec">
+			Données au format GeoTIFF
+		</description>
+		<title xml:lang="sv-t-de-t0-mtec">
+			Digital 10 m – Terrain Modell från luftburna Laserscan Data i projektion EPSG: 31287 (Lambert)
+		</title>
+		<description xml:lang="ro-t-de-t0-mtec">
+			Date în format GeoTIFF
+		</description>
+	</Distribution>
+</RDF>
